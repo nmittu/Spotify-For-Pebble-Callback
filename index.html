@@ -1,5 +1,8 @@
 <script>
 
+var client_id = '92b11541ab694d1699eca606cb416622';
+var redirect_uri = 'https://nmittu.github.io/Spotify-For-Pebble-Callback';
+var scope = 'user-read-private user-read-email playlist-read-private user-modify-playback-state';
 
 function getQueryParam(variable, defaultValue) {
   var query = location.search.substring(1);
@@ -12,11 +15,18 @@ function getQueryParam(variable, defaultValue) {
   }
   return defaultValue || false;
 }
-var return_to = getQueryParam('return_to', 'pebblejs://close#');
 
-var options = {
-  code: getQueryParam('code', '')
-};
+if (getQueryParam('code', '') == ''){
+  localStorage.setItem('return_to', getQueryParam('return_to', 'pebblejs://close#'));
+  document.location = "https://accounts.spotify.com/authorize?response_type=code&client_id="+client_id+"&scope="+scope+"&redirect_uri="+redirect_uri;
+}else{
+  var return_to = localStorage.getItem('return_to');
+  localStorage.removeItem('return_to');
 
-document.location = return_to + encodeURIComponent(JSON.stringify(options));
+  var options = {
+    code: getQueryParam('code', '')
+  };
+
+  document.location = return_to + encodeURIComponent(JSON.stringify(options));
+}
 </script>
