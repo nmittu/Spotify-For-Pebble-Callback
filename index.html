@@ -23,10 +23,6 @@ if (getQueryParam('code', '') == ''){
   var return_to = localStorage.getItem('return_to');
   localStorage.removeItem('return_to');
 
-  var options = {
-    code: getQueryParam('code', '')
-  };
-
-  document.location = return_to + encodeURIComponent(JSON.stringify(options));
+  document.location = return_to + getQueryParam('code', '');
 }
 </script>
