@@ -12,7 +12,7 @@ function getQueryParam(variable, defaultValue) {
   }
   return defaultValue || false;
 }
-var return_to = decodeURIComponent(getQueryParam('return_to', 'pebblejs://close#'));
+var return_to = getQueryParam('return_to', 'pebblejs://close#');
 
 var options = {
   code: getQueryParam('code', '')
